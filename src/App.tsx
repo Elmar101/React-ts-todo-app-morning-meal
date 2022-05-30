@@ -1,13 +1,11 @@
-import React from 'react';
-
 import './App.scss';
+import Todo from './todo/Todo';
 
 function App() {
   return (
-    <div className="App">
-<button className="btn btn-primary">ok</button>
-      Todo App
-    </div>
+   <>
+    <Todo/>
+   </>
   );
 }
 
