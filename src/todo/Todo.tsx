@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { useRef } from "react";
-interface ITODO_ITEMS {
+import { Model } from "../models/staticData";
+import { TodoItem } from "../models/todoItem";
+/* interface ITODO_ITEMS {
     id: number;
     description: string;
     action: string;
@@ -9,11 +11,19 @@ const initial_items: ITODO_ITEMS[] = [
     { id: 1, description: 'Seher Yemeyi', action: 'he' },
     { id: 2, description: 'Seher Bazarliqi', action: 'he' },
     { id: 3, description: 'Seher Idmani', action: 'yox' }
-]
+] */
 const Todo = () => {
-    const [items, setItems] = useState<ITODO_ITEMS[]>(initial_items);
-    const name = useRef('Elmar');
+    const model = new Model();
+    const [items, setItems] = useState<TodoItem[]>(model.items);
+    const [message,setMessage] = useState("");
+    const name = useRef(model.name);
     const getName = useMemo(() => { return name.current }, [name.current]);
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const addToList = (input: HTMLInputElement) => {
+       setMessage(input.value);
+       input.value = "";
+    }
 
     return (
         <div className="container">
@@ -23,9 +33,17 @@ const Todo = () => {
                         {getName}'in Listesi
                     </h3>
                     <div className="input-group mb-3">
-                        <input type="text" className="form-control" />
-                        <button className="btn btn-primary"> Əlavə et </button>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            ref={inputRef}
+                        />
+                        <button 
+                            className="btn btn-primary" 
+                            onClick = {()=> inputRef.current && addToList(inputRef.current)}
+                        > Əlavə et </button>
                     </div>
+                    {message}
                     <div className="input-group mb-3">
                         <input type="checkbox" className="form-check-input" name="" id="disableAll" />
                         <label htmlFor="disableAll" className="form-check-label"> Hamisini Görsəd</label>
