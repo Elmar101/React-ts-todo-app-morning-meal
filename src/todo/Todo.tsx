@@ -37,6 +37,10 @@ const Todo = () => {
                             type="text" 
                             className="form-control" 
                             ref={inputRef}
+                            onKeyUp = {(e)=> {
+                                e.code ==="Enter"  && (inputRef.current && addToList(inputRef.current))
+                            }}
+                            onBlur = {() => inputRef.current && addToList(inputRef.current)}
                         />
                         <button 
                             className="btn btn-primary" 
