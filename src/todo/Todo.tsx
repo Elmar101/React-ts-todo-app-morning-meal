@@ -21,7 +21,7 @@ const Todo = () => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const addToList = (input: HTMLInputElement) => {
-       setMessage(input.value);
+       input.value && setMessage(input.value);
        input.value = "";
     }
 
